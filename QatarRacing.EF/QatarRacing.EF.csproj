@@ -46,12 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Migrations\201410201045241_initialize.cs" />
+    <Compile Include="Migrations\201410201045241_initialize.Designer.cs">
+      <DependentUpon>201410201045241_initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\WinningPrice.cs" />
+    <Compile Include="RaceContext.cs" />
+    <Compile Include="Model\Link.cs" />
+    <Compile Include="Model\Race.cs" />
+    <Compile Include="Model\Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201410201045241_initialize.resx">
+      <DependentUpon>201410201045241_initialize.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
