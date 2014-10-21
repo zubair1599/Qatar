@@ -18,10 +18,21 @@ namespace QatarRacing.UI.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            for (int i = 7056 ; i < 7100; i++)
+            for (int i = 7230; i < 7500; i++)
+                {
+            try
             {
-                DownloadData(i);    
+               
+                    DownloadData(i);
+                    System.Diagnostics.Trace.WriteLine("Done for ID :" + i);
+               
             }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Trace.WriteLine("EXCEPTION for ID :" + i);
+            }
+             }
             
             return View();
         }
@@ -100,15 +111,37 @@ namespace QatarRacing.UI.Controllers
                     var p = (from a in allRacesOfLink where (a.Attributes.Contains("id") && a.Attributes["id"].Value.Contains("tabRace_" + ID.ToString())) select a).SingleOrDefault();
                     var raceOuterDetail = p.ChildNodes.Where(m => m.Name == "div").ToList().ElementAt(0);
                     var raceDetail = raceOuterDetail.ChildNodes.Where(m => m.Name == "div").ToList().ElementAt(0);
-                    race.Title = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(0).InnerText;
+                    
                     if (date.Year != 1)
                     {
-                        date = date.AddHours(double.Parse(raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(0).InnerText.Split(':')[0]));
-                        date = date.AddMinutes(double.Parse(raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(0).InnerText.Split(':')[1]));
-                        race.Time = date;
+                        var tmp1 = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList();
+
+                        
+
+                        if (tmp1.Count()>2)
+                        
+                        {
+                            race.Title = tmp1.ElementAt(0).InnerText;
+
+                            var tmp2 = tmp1.ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList();
+                            if (tmp2.Count==2)
+                            {
+                                date = date.AddHours(double.Parse(raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(0).InnerText.Split(':')[0]));
+                                date = date.AddMinutes(double.Parse(raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(0).InnerText.Split(':')[1]));
+                                race.Time = date;
+                                race.TrackLength = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(1).InnerText;
+                            }
+                            else
+                            {
+                                race.TrackLength = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(0).InnerText;
+                            }
+
+                        }
+
+                        
                     }
 
-                    race.TrackLength = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(1).ChildNodes.Where(m => m.Name == "span").ToList().ElementAt(1).InnerText;
+                    
                     race.TrackType = raceDetail.ChildNodes.Where(m => m.Name == "p").ToList().ElementAt(2).InnerText.Split(':')[1];
                     var winningPrize = raceOuterDetail.ChildNodes.Where(m => m.Name == "div").ToList().ElementAt(2).ChildNodes.Where(m => m.Name == "ul").SingleOrDefault().ChildNodes.Where(m => m.Name == "li").ToList();
 
