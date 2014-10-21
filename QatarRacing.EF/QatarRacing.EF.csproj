@@ -46,11 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201410201045241_initialize.cs" />
-    <Compile Include="Migrations\201410201045241_initialize.Designer.cs">
-      <DependentUpon>201410201045241_initialize.cs</DependentUpon>
+    <Compile Include="Migrations\201410211008223_initial.cs" />
+    <Compile Include="Migrations\201410211008223_initial.Designer.cs">
+      <DependentUpon>201410211008223_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Jockey.cs" />
     <Compile Include="Model\WinningPrice.cs" />
     <Compile Include="RaceContext.cs" />
     <Compile Include="Model\Link.cs" />
@@ -63,8 +64,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410201045241_initialize.resx">
-      <DependentUpon>201410201045241_initialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410211008223_initial.resx">
+      <DependentUpon>201410211008223_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

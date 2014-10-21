@@ -28,7 +28,7 @@ namespace QatarRacing.EF.Model
         public string WinningCurrency { get; set; }
 
         public string Weather { get; set; }
-        public string TrackCondition { get; set; }
+        public string RaceConditions { get; set; }
         public string RailPosition { get; set; }
         public string SafetyLimit { get; set; }
 

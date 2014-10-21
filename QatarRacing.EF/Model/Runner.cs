@@ -10,7 +10,7 @@ namespace QatarRacing.EF.Model
     {
         public string Horse { get; set; }
 
-        public string Jockey { get; set; }
+        public virtual Jockey Jockey { get; set; }
 
         public int RunnerID { get; set; }
 

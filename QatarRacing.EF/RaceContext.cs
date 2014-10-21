@@ -18,6 +18,9 @@ namespace QatarRacing.EF
 
         public DbSet<Link> Links { get; set; }
 
+        public DbSet<Jockey> Jockeys { get; set; }
+
+
         public RaceContext()
             : base("defaultConnStr")
         {
@@ -32,11 +35,13 @@ namespace QatarRacing.EF
             modelBuilder.Entity<WinningPrice>().HasKey(m => m.WinningPriceID);
             modelBuilder.Entity<Runner>().HasKey(m => m.RunnerID);
             modelBuilder.Entity<Link>().HasKey(m => m.LinkID);
+            modelBuilder.Entity<Jockey>().HasKey(m => m.JockeyID);
 
             modelBuilder.Entity<Link>().Property(s => s.LinkID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Race>().Property(s => s.RaceID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<WinningPrice>().Property(s => s.WinningPriceID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Runner>().Property(s => s.RunnerID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Jockey>().Property(s => s.JockeyID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             //one to zeer one
             modelBuilder.Entity<Link>().HasMany(m => m.Races).WithRequired(m => m.Link);
@@ -48,10 +53,9 @@ namespace QatarRacing.EF
 
 
 
-
+            modelBuilder.Entity<Jockey>().HasMany(m => m.Runners).WithRequired(m => m.Jockey);
 
             modelBuilder.Entity<Race>().HasMany(m => m.WinningPrices).WithRequired(m => m.Race);
-
 
 
             base.OnModelCreating(modelBuilder);
